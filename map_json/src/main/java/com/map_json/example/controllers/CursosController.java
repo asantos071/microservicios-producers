@@ -38,9 +38,22 @@ public class CursosController {
         return new Curso("Java", "100", "Mañana");
     }
 
-    /* Informacion del curso por nombre */
-    @GetMapping(value = "cursos/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Curso> buscarCurso(@PathVariable("name") String c_name) {
+    /* Informacion del curso por nombre en Json */
+    @GetMapping(value = "cursos/JSON/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Curso> buscarCursoJSON(@PathVariable("name") String c_name) {
+        ArrayList<Curso> auxList = new ArrayList<Curso>();
+        for (Curso curso : list_cursos) {
+            if (curso.getNombre().contains(c_name)) {
+                auxList.add(curso);
+            }
+        }
+        return auxList;
+    }
+
+    /* Informacion del curso por nombre en XML */
+    /*Se agrega dependencia jackson-dataformat-xml*/
+    @GetMapping(value = "cursos/XML/{name}", produces = MediaType.APPLICATION_XML_VALUE)
+    public List<Curso> buscarCursoXML(@PathVariable("name") String c_name) {
         ArrayList<Curso> auxList = new ArrayList<Curso>();
         for (Curso curso : list_cursos) {
             if (curso.getNombre().contains(c_name)) {
